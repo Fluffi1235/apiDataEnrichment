@@ -2,8 +2,6 @@ package repositories
 
 import (
 	"Effective_Mobile/internal/model"
-	"log"
-	"strconv"
 )
 
 func (r Repository) SaveUser(user *model.User) error {
@@ -15,33 +13,29 @@ func (r Repository) SaveUser(user *model.User) error {
 	return nil
 }
 
-func (r Repository) GetInfoAllUsers(page string) ([]*model.User, error) {
-	pageInt, err := strconv.Atoi(page)
-	if err != nil {
-		return nil, err
-	}
+func (r Repository) GetInfoAllUsers(page int) ([]*model.User, error) {
 	users := make([]*model.User, 0)
-	countSkipUsers := (pageInt - 1) * 5
+	countSkipUsers := (page - 1) * 5
 	query := "SELECT id, name, surname, patronymic, age, gender, country FROM Users offset $1 limit 5"
-	err = r.db.Select(&users, query, countSkipUsers)
+
+	err := r.db.Select(&users, query, countSkipUsers)
 	if err != nil {
 		return nil, err
 	}
+
 	return users, nil
 }
 
-func (r *Repository) GetUsersByParameter(page, parameter, value string) ([]*model.User, error) {
-	pageInt, err := strconv.Atoi(page)
-	if err != nil {
-		return nil, err
-	}
+func (r *Repository) GetUsersByParameter(page int, parameter, value string) ([]*model.User, error) {
 	users := make([]*model.User, 0)
-	countSkipUsers := (pageInt - 1) * 5
-	query := "SELECT id, name, surname, patronymic, age, gender, country FROM Users where $1 = $2 offset $3 limit 5"
-	err = r.db.Select(&users, query, parameter, value, countSkipUsers)
+	countSkipUsers := (page - 1) * 5
+	query := "SELECT id, name, surname, patronymic, age, gender, country FROM Users where " + parameter + " = $2 offset $3 limit 5"
+
+	err := r.db.Select(&users, query, parameter, value, countSkipUsers)
 	if err != nil {
 		return nil, err
 	}
+
 	return users, nil
 }
 
@@ -54,17 +48,12 @@ func (r Repository) UpdateUserById(newUser *model.User) error {
 	return nil
 }
 
-func (r Repository) DeleteUserById(id string) error {
-	idUser, err := strconv.Atoi(id)
-	if err != nil {
-		return err
-	}
+func (r Repository) DeleteUserById(id int) error {
 	query := "DELETE FROM Users WHERE id = $1"
-	_, err = r.db.Exec(query,
-		idUser)
+	_, err := r.db.Exec(query, id)
 	if err != nil {
 		return err
 	}
-	log.Printf("User with id = %s deleted", id)
+
 	return nil
 }

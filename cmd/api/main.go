@@ -17,18 +17,22 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	db, err := sqlx.Connect("postgres", cfg.DBUrl)
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	repo := repositories.New(db)
 	service := services.New(repo)
 	defer db.Close()
+
 	r := chi.NewRouter()
 	err = controllers.UserController(r, cfg, service)
 	if err != nil {
 		log.Println(err)
 	}
+
 	err = http.ListenAndServe(":8080", r)
 	if err != nil {
 		log.Fatal(err)
