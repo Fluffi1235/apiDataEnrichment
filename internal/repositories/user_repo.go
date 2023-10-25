@@ -20,10 +20,25 @@ func (r Repository) GetInfoAllUsers(page string) ([]*model.User, error) {
 	if err != nil {
 		return nil, err
 	}
-	countSkipUsers := (pageInt - 1) * 5
 	users := make([]*model.User, 0)
+	countSkipUsers := (pageInt - 1) * 5
 	query := "SELECT id, name, surname, patronymic, age, gender, country FROM Users offset $1 limit 5"
 	err = r.db.Select(&users, query, countSkipUsers)
+	if err != nil {
+		return nil, err
+	}
+	return users, nil
+}
+
+func (r *Repository) GetUsersByParameter(page, parameter, value string) ([]*model.User, error) {
+	pageInt, err := strconv.Atoi(page)
+	if err != nil {
+		return nil, err
+	}
+	users := make([]*model.User, 0)
+	countSkipUsers := (pageInt - 1) * 5
+	query := "SELECT id, name, surname, patronymic, age, gender, country FROM Users where $1 = $2 offset $3 limit 5"
+	err = r.db.Select(&users, query, parameter, value, countSkipUsers)
 	if err != nil {
 		return nil, err
 	}

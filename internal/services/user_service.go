@@ -61,10 +61,10 @@ func (r *Repository) DeleteUserById(id string) error {
 
 func (r *Repository) GetAllUsers(page string) (error, [][]byte) {
 	users, err := r.repo.GetInfoAllUsers(page)
-	var usersJSN [][]byte
 	if err != nil {
 		return err, nil
 	}
+	var usersJSN [][]byte
 	for _, user := range users {
 		userJSN, err := json.Marshal(&user)
 		if err != nil {
@@ -73,4 +73,34 @@ func (r *Repository) GetAllUsers(page string) (error, [][]byte) {
 		usersJSN = append(usersJSN, userJSN)
 	}
 	return nil, usersJSN
+}
+
+func (r *Repository) GetUsersByParameter(parameter, value, page string) (error, [][]byte) {
+	var users []*model.User
+	var err error
+	if isValidParameter(parameter) {
+		users, err = r.repo.GetUsersByParameter(page, parameter, value)
+		if err != nil {
+			return err, nil
+		}
+	} else {
+		return nil, [][]byte{[]byte("Такого параметра не существует")}
+	}
+	var usersJSN [][]byte
+	for _, user := range users {
+		userJSN, err := json.Marshal(&user)
+		if err != nil {
+			return err, nil
+		}
+		usersJSN = append(usersJSN, userJSN)
+	}
+	return nil, usersJSN
+}
+
+func isValidParameter(parameter string) bool {
+	if parameter == "name" || parameter == "surname" || parameter == "patronymic" ||
+		parameter == "age" || parameter == "gender" || parameter == "country" {
+		return true
+	}
+	return false
 }

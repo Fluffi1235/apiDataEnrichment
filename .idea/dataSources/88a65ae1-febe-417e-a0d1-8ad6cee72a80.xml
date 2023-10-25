@@ -3,14 +3,22 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.49">
     <root id="1">
       <DateStyle>mdy</DateStyle>
-      <Grants>16384||-9223372036854775808|c|G
+      <Grants>1||-9223372036854775808|c|G
+1||10|c|G
+1||10|C|G
+1||10|T|G
+4||-9223372036854775808|c|G
+4||10|c|G
+4||10|C|G
+4||10|T|G
+16384||-9223372036854775808|c|G
 16384||16385|c|G
 16384||16385|C|G
 16384||-9223372036854775808|T|G
 16384||16385|T|G</Grants>
-      <IntrospectionStateNumber>731</IntrospectionStateNumber>
+      <IntrospectionStateNumber>740</IntrospectionStateNumber>
       <ServerVersion>15.4</ServerVersion>
-      <StartupTime>1698174510</StartupTime>
+      <StartupTime>1698260421</StartupTime>
       <TimeZones>true ACDT
 true ACSST
 false ACST
@@ -806,7 +814,7 @@ false Zulu
 13188||10|C|G
 13188||-9223372036854775808|U|G
 13188||10|U|G</Grants>
-      <IntrospectionStateNumber>731</IntrospectionStateNumber>
+      <IntrospectionStateNumber>740</IntrospectionStateNumber>
       <ObjectId>16384</ObjectId>
       <OwnerName>user</OwnerName>
     </database>
@@ -4229,92 +4237,12 @@ false Zulu
     <schema id="263" parent="2" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>731</IntrospectionStateNumber>
-      <IntrospectionTimestamp>2023-10-24.22:08:37.817</IntrospectionTimestamp>
-      <LocalIntrospectionTimestamp>2023-10-24.19:08:38</LocalIntrospectionTimestamp>
+      <IntrospectionStateNumber>740</IntrospectionStateNumber>
+      <IntrospectionTimestamp>2023-10-25.22:01:11.165</IntrospectionTimestamp>
+      <LocalIntrospectionTimestamp>2023-10-25.19:01:11</LocalIntrospectionTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>728</StateNumber>
       <OwnerName>user</OwnerName>
     </schema>
-    <sequence id="264" parent="263" name="users_id_seq">
-      <DasType>integer|0s</DasType>
-      <ObjectId>16386</ObjectId>
-      <SequenceIdentity>1(1)</SequenceIdentity>
-      <StartValue>1</StartValue>
-      <StateNumber>729</StateNumber>
-      <OwnerName>user</OwnerName>
-    </sequence>
-    <table id="265" parent="263" name="users">
-      <ObjectId>16387</ObjectId>
-      <StateNumber>729</StateNumber>
-      <AccessMethodId>2</AccessMethodId>
-      <OwnerName>user</OwnerName>
-    </table>
-    <column id="266" parent="265" name="id">
-      <DasType>integer|0s</DasType>
-      <IdentityKind>by-default</IdentityKind>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-      <StateNumber>729</StateNumber>
-      <SequenceId>16386</SequenceId>
-      <TypeId>23</TypeId>
-    </column>
-    <column id="267" parent="265" name="name">
-      <DasType>varchar(20)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-      <StateNumber>729</StateNumber>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="268" parent="265" name="surname">
-      <DasType>varchar(20)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>3</Position>
-      <StateNumber>729</StateNumber>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="269" parent="265" name="patronymic">
-      <DasType>varchar(20)|0s</DasType>
-      <Position>4</Position>
-      <StateNumber>729</StateNumber>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="270" parent="265" name="age">
-      <DasType>integer|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>5</Position>
-      <StateNumber>729</StateNumber>
-      <TypeId>23</TypeId>
-    </column>
-    <column id="271" parent="265" name="gender">
-      <DasType>varchar(10)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>6</Position>
-      <StateNumber>729</StateNumber>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="272" parent="265" name="country">
-      <DasType>varchar(30)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>7</Position>
-      <StateNumber>729</StateNumber>
-      <TypeId>1043</TypeId>
-    </column>
-    <index id="273" parent="265" name="users_pkey">
-      <ColNames>id</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16390</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>729</StateNumber>
-      <Unique>1</Unique>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <key id="274" parent="265" name="users_pkey">
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16391</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>729</StateNumber>
-      <UnderlyingIndexId>16390</UnderlyingIndexId>
-    </key>
   </database-model>
 </dataSource>

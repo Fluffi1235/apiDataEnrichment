@@ -35,6 +35,38 @@ func UserController(r *chi.Mux, cfg *model.Config, service *services.Repository)
 			}
 			log.Printf("Return all users page %s", page)
 		})
+		r.Get("/search", func(w http.ResponseWriter, r *http.Request) {
+			parameter := r.FormValue("parameter")
+			value := r.FormValue("value")
+			page := r.FormValue("page")
+			if value == "" || parameter == "" {
+				_, err := w.Write([]byte("Неверно введены параметры"))
+				if err != nil {
+					log.Println(err)
+					return
+				}
+			}
+			err, usersJSN := service.GetUsersByParameter(parameter, value, page)
+			if err != nil {
+				log.Println(err)
+				return
+			}
+			if len(usersJSN) == 0 {
+				_, err = w.Write([]byte(fmt.Sprintf("Больше пользователей нет, страница %s", parameter)))
+				if err != nil {
+					log.Println(err)
+					return
+				}
+			}
+			for _, userJSN := range usersJSN {
+				_, err = w.Write(userJSN)
+				if err != nil {
+					log.Println(err)
+					return
+				}
+			}
+			log.Printf("Return all users by parameter %s", parameter)
+		})
 		r.Get("/createUser", func(w http.ResponseWriter, r *http.Request) {
 			if r.FormValue("name") == "" || r.FormValue("surname") == "" {
 				_, err := w.Write([]byte("Некорректно введенные данные"))
