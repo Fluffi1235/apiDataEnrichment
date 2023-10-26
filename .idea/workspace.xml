@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d7ec3ad-6225-45af-8bff-1e9a64d90af1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/88a65ae1-febe-417e-a0d1-8ad6cee72a80.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/88a65ae1-febe-417e-a0d1-8ad6cee72a80.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/controllers/methods/methods_delete.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/controllers/methods/delete_user_byId.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/controllers/methods/methods_post.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/controllers/methods/methods_update.go" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

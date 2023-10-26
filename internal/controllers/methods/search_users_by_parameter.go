@@ -12,46 +12,6 @@ import (
 	"net/http"
 )
 
-func CreateUser(r chi.Router, service *services.Service, cfg *model.Config) {
-	r.Post("/createUser", func(w http.ResponseWriter, r *http.Request) {
-		if r.FormValue("name") == "" || r.FormValue("surname") == "" {
-			_, err := w.Write([]byte("Некорректно введенные данные"))
-			if err != nil {
-				log.Println(err)
-			}
-			return
-		}
-
-		name := r.FormValue("name")
-		surname := r.FormValue("surname")
-		patronymic := r.FormValue("patronymic")
-		log.Printf("Creating user name: %s surname: %s patronymic: %s", name, surname, patronymic)
-
-		user, err := service.CreateUser(name, surname, patronymic, cfg)
-		if err != nil {
-			log.Println(err)
-			_, err = w.Write([]byte("Возникла ошибка с текущим пользователем"))
-			if err != nil {
-				log.Println(err)
-			}
-			return
-		}
-
-		userJSN, err := json.Marshal(&user)
-		if err != nil {
-			log.Println(err)
-		}
-
-		_, err = w.Write(userJSN)
-		if err != nil {
-			log.Println(err)
-			return
-		}
-
-		log.Printf("User created %v", user)
-	})
-}
-
 func SearchUsersByParameter(r chi.Router, service *services.Service) {
 	r.Post("/search", func(w http.ResponseWriter, r *http.Request) {
 		filters, err := io.ReadAll(r.Body)
@@ -59,6 +19,7 @@ func SearchUsersByParameter(r chi.Router, service *services.Service) {
 		parameters := &model.Filter{}
 		err = decoder.Decode(parameters)
 		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
 			log.Println(err)
 			return
 		}
@@ -71,6 +32,7 @@ func SearchUsersByParameter(r chi.Router, service *services.Service) {
 		}
 		users, err := service.GetUsersByParameter(parameters)
 		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
 			log.Println(err)
 			return
 		}
@@ -87,6 +49,7 @@ func SearchUsersByParameter(r chi.Router, service *services.Service) {
 		for _, user := range users {
 			userJSN, err := json.Marshal(&user)
 			if err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
 				log.Println(err)
 			}
 			usersJSN = append(usersJSN, userJSN)
@@ -95,6 +58,7 @@ func SearchUsersByParameter(r chi.Router, service *services.Service) {
 		for _, userJSN := range usersJSN {
 			_, err = w.Write(userJSN)
 			if err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
 				log.Println(err)
 				return
 			}

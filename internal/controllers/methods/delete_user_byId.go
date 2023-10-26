@@ -22,12 +22,14 @@ func DeleteUserById(r chi.Router, service *services.Service) {
 
 		err := service.DeleteUserById(id)
 		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
 			log.Println(err)
 			return
 		}
 
 		_, err = w.Write([]byte(fmt.Sprintf("Пользователь с id=%s удален", id)))
 		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
 			log.Println(err)
 			return
 		}

@@ -23,11 +23,13 @@ func UpdateInfoUser(r chi.Router, service *services.Service) {
 		}
 		idInt, err := strconv.Atoi(id)
 		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
 			log.Println(err)
 			return
 		}
 		ageInt, err := strconv.Atoi(age)
 		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
 			log.Println(err)
 			return
 		}
@@ -43,11 +45,13 @@ func UpdateInfoUser(r chi.Router, service *services.Service) {
 		log.Printf("Updating user id: %s", id)
 		err = service.UpdateUser(newUser)
 		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
 			log.Println(err)
 			return
 		}
 		_, err = w.Write([]byte(fmt.Sprintf("Пользователь с id=%s обновлен %v", id, newUser)))
 		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
 			log.Println(err)
 			return
 		}
