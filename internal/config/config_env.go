@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/joho/godotenv"
 	"os"
+	"strconv"
 )
 
 func ReadConfigEnv() (*model.Config, error) {
@@ -25,12 +26,26 @@ func ReadConfigEnv() (*model.Config, error) {
 	ageApi := os.Getenv("ageApi")
 	genderApi := os.Getenv("genderApi")
 	countryApi := os.Getenv("countryApi")
+	clientTimeOutStr := os.Getenv("clientTimeOut")
+	contextTimeOutStr := os.Getenv("contextTimeOut")
+
+	clientTimeOut, err := strconv.Atoi(clientTimeOutStr)
+	if err != nil {
+		return nil, err
+	}
+
+	contextTimeOut, err := strconv.Atoi(contextTimeOutStr)
+	if err != nil {
+		return nil, err
+	}
 
 	cfg := &model.Config{
-		DBUrl:      databaseURL,
-		AgeApi:     ageApi,
-		GenderApi:  genderApi,
-		CountryApi: countryApi,
+		DBUrl:          databaseURL,
+		AgeApi:         ageApi,
+		GenderApi:      genderApi,
+		CountryApi:     countryApi,
+		ClientTimeOut:  clientTimeOut,
+		ContextTimeOut: contextTimeOut,
 	}
 
 	return cfg, nil

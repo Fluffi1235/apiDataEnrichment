@@ -15,9 +15,9 @@ type userGender struct {
 func GetUserGender(name string, cfg *model.Config) (string, error) {
 	client := http.DefaultClient
 	url := cfg.GenderApi + name
-	client.Timeout = 3 * time.Second
+	client.Timeout = time.Duration(cfg.ClientTimeOut) * time.Second
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(cfg.ContextTimeOut)*time.Second)
 	defer cancel()
 
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)

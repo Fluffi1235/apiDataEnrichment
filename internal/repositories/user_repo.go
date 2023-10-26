@@ -13,25 +13,12 @@ func (r Repository) SaveUser(user *model.User) error {
 	return nil
 }
 
-func (r Repository) GetInfoAllUsers(page int) ([]*model.User, error) {
+func (r *Repository) GetUsersByParameter(parameters string, page int) ([]*model.User, error) {
 	users := make([]*model.User, 0)
 	countSkipUsers := (page - 1) * 5
-	query := "SELECT id, name, surname, patronymic, age, gender, country FROM Users offset $1 limit 5"
+	query := "SELECT id, name, surname, patronymic, age, gender, country FROM Users" + parameters + " offset $1 limit 5"
 
 	err := r.db.Select(&users, query, countSkipUsers)
-	if err != nil {
-		return nil, err
-	}
-
-	return users, nil
-}
-
-func (r *Repository) GetUsersByParameter(page int, parameter, value string) ([]*model.User, error) {
-	users := make([]*model.User, 0)
-	countSkipUsers := (page - 1) * 5
-	query := "SELECT id, name, surname, patronymic, age, gender, country FROM Users where " + parameter + " = $2 offset $3 limit 5"
-
-	err := r.db.Select(&users, query, parameter, value, countSkipUsers)
 	if err != nil {
 		return nil, err
 	}

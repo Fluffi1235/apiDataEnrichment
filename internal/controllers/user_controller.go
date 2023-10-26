@@ -9,7 +9,6 @@ import (
 
 func UserController(r *chi.Mux, cfg *model.Config, service *services.Service) error {
 	r.Route("/api", func(r chi.Router) {
-		methods.AllUsers(r, service)
 		methods.SearchUsersByParameter(r, service)
 		methods.CreateUser(r, service, cfg)
 		methods.UpdateInfoUser(r, service)

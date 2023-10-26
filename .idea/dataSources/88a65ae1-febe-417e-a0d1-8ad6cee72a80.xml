@@ -16,9 +16,9 @@
 16384||16385|C|G
 16384||-9223372036854775808|T|G
 16384||16385|T|G</Grants>
-      <IntrospectionStateNumber>740</IntrospectionStateNumber>
+      <IntrospectionStateNumber>749</IntrospectionStateNumber>
       <ServerVersion>15.4</ServerVersion>
-      <StartupTime>1698260421</StartupTime>
+      <StartupTime>1698342852</StartupTime>
       <TimeZones>true ACDT
 true ACSST
 false ACST
@@ -814,7 +814,7 @@ false Zulu
 13188||10|C|G
 13188||-9223372036854775808|U|G
 13188||10|U|G</Grants>
-      <IntrospectionStateNumber>740</IntrospectionStateNumber>
+      <IntrospectionStateNumber>749</IntrospectionStateNumber>
       <ObjectId>16384</ObjectId>
       <OwnerName>user</OwnerName>
     </database>
@@ -4237,12 +4237,152 @@ false Zulu
     <schema id="263" parent="2" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>740</IntrospectionStateNumber>
-      <IntrospectionTimestamp>2023-10-25.22:01:11.165</IntrospectionTimestamp>
-      <LocalIntrospectionTimestamp>2023-10-25.19:01:11</LocalIntrospectionTimestamp>
+      <IntrospectionStateNumber>749</IntrospectionStateNumber>
+      <IntrospectionTimestamp>2023-10-26.22:09:17.786</IntrospectionTimestamp>
+      <LocalIntrospectionTimestamp>2023-10-26.19:09:18</LocalIntrospectionTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>728</StateNumber>
       <OwnerName>user</OwnerName>
     </schema>
+    <sequence id="264" parent="263" name="goose_db_version_id_seq">
+      <DasType>integer|0s</DasType>
+      <ObjectId>16386</ObjectId>
+      <SequenceIdentity>1(3)</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>729</StateNumber>
+      <OwnerName>user</OwnerName>
+    </sequence>
+    <sequence id="265" parent="263" name="users_id_seq">
+      <DasType>integer|0s</DasType>
+      <ObjectId>16394</ObjectId>
+      <SequenceIdentity>1(8)</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>730</StateNumber>
+      <OwnerName>user</OwnerName>
+    </sequence>
+    <table id="266" parent="263" name="goose_db_version">
+      <ObjectId>16387</ObjectId>
+      <StateNumber>729</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>user</OwnerName>
+    </table>
+    <table id="267" parent="263" name="users">
+      <ObjectId>16395</ObjectId>
+      <StateNumber>730</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>user</OwnerName>
+    </table>
+    <column id="268" parent="266" name="id">
+      <DasType>integer|0s</DasType>
+      <DefaultExpression>nextval(&apos;goose_db_version_id_seq&apos;::regclass)</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>729</StateNumber>
+      <SequenceId>16386</SequenceId>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="269" parent="266" name="version_id">
+      <DasType>bigint|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>729</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="270" parent="266" name="is_applied">
+      <DasType>boolean|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <StateNumber>729</StateNumber>
+      <TypeId>16</TypeId>
+    </column>
+    <column id="271" parent="266" name="tstamp">
+      <DasType>timestamp|0s</DasType>
+      <DefaultExpression>now()</DefaultExpression>
+      <Position>4</Position>
+      <StateNumber>729</StateNumber>
+      <TypeId>1114</TypeId>
+    </column>
+    <index id="272" parent="266" name="goose_db_version_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>16392</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>729</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="273" parent="266" name="goose_db_version_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>16393</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>729</StateNumber>
+      <UnderlyingIndexId>16392</UnderlyingIndexId>
+    </key>
+    <column id="274" parent="267" name="id">
+      <DasType>integer|0s</DasType>
+      <IdentityKind>by-default</IdentityKind>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>730</StateNumber>
+      <SequenceId>16394</SequenceId>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="275" parent="267" name="name">
+      <DasType>varchar(20)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>730</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="276" parent="267" name="surname">
+      <DasType>varchar(20)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <StateNumber>730</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="277" parent="267" name="patronymic">
+      <DasType>varchar(20)|0s</DasType>
+      <Position>4</Position>
+      <StateNumber>730</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="278" parent="267" name="age">
+      <DasType>integer|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+      <StateNumber>730</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="279" parent="267" name="gender">
+      <DasType>varchar(10)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+      <StateNumber>730</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="280" parent="267" name="country">
+      <DasType>varchar(30)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>7</Position>
+      <StateNumber>730</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="281" parent="267" name="users_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>16398</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>730</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="282" parent="267" name="users_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>16399</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>730</StateNumber>
+      <UnderlyingIndexId>16398</UnderlyingIndexId>
+    </key>
   </database-model>
 </dataSource>

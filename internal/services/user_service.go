@@ -4,8 +4,9 @@ import (
 	"Effective_Mobile/internal/model"
 	"Effective_Mobile/internal/parsers"
 	"Effective_Mobile/internal/repositories"
-	"errors"
+	"fmt"
 	"strconv"
+	"strings"
 )
 
 type Service struct {
@@ -68,45 +69,51 @@ func (s *Service) DeleteUserById(id string) error {
 	return nil
 }
 
-func (s *Service) GetAllUsers(page string) ([]*model.User, error) {
-	pageInt, err := strconv.Atoi(page)
-	if err != nil {
-		return nil, err
-	}
-	users, err := s.repo.GetInfoAllUsers(pageInt)
-	if err != nil {
-		return nil, err
-	}
-
-	return users, nil
-}
-
-func (s *Service) GetUsersByParameter(parameter, value, page string) ([]*model.User, error) {
+func (s *Service) GetUsersByParameter(parameters *model.Filter) ([]*model.User, error) {
 	var users []*model.User
 	var err error
-
-	pageInt, err := strconv.Atoi(page)
+	parametersSql := BuildParametersSql(parameters)
+	users, err = s.repo.GetUsersByParameter(parametersSql, parameters.Page)
 	if err != nil {
 		return nil, err
 	}
-
-	if isValidParameter(parameter) {
-		users, err = s.repo.GetUsersByParameter(pageInt, parameter, value)
-		if err != nil {
-			return nil, err
-		}
-	} else {
-		return nil, errors.New("Неверно введен фильтр")
-	}
-
 	return users, nil
 }
 
-func isValidParameter(parameter string) bool {
-	if parameter == "name" || parameter == "surname" || parameter == "patronymic" ||
-		parameter == "age" || parameter == "gender" || parameter == "country" {
-		return true
+func BuildParametersSql(parameter *model.Filter) string {
+	var columns, value []string
+
+	if parameter.Name != "" {
+		columns = append(columns, "name")
+		value = append(value, fmt.Sprintf("'%s'", parameter.Name))
 	}
 
-	return false
+	if parameter.SurName != "" {
+		columns = append(columns, "surname")
+		value = append(value, fmt.Sprintf("'%s'", parameter.SurName))
+	}
+
+	if parameter.Patronymic != "" {
+		columns = append(columns, "patronymic")
+		value = append(value, fmt.Sprintf("'%s'", parameter.Patronymic))
+	}
+
+	if parameter.Age != 0 {
+		columns = append(columns, "age")
+		value = append(value, fmt.Sprintf("%d", parameter.Age))
+	}
+
+	if parameter.Gender != "" {
+		columns = append(columns, "gender")
+		value = append(value, fmt.Sprintf("'%s'", parameter.Gender))
+	}
+
+	if parameter.Country != "" {
+		columns = append(columns, "country")
+		value = append(value, fmt.Sprintf("'%s'", parameter.Country))
+	}
+	if len(columns) == 0 {
+		return ""
+	}
+	return " where (" + strings.Join(columns, ", ") + ") = (" + strings.Join(value, ", ") + ")"
 }

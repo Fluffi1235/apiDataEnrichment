@@ -6,13 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6d7ec3ad-6225-45af-8bff-1e9a64d90af1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/api/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/config/config_env.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/config/config_env.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/controllers/user_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/controllers/user_controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/parsers/parse_age.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/parsers/parse_age.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/parsers/parse_country.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/parsers/parse_country.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/parsers/parse_gender.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/parsers/parse_gender.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/repositories/interface.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/repositories/interface.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/repositories/user_repo.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/repositories/user_repo.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/services/user_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/services/user_service.go" afterDir="false" />
     </list>
@@ -43,31 +36,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultGoTemplateProperty": "Go File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
-    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "go.import.settings.migrated": "true",
-    "last_opened_file_path": "C:/Users/Fluffi",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "settings.editor.selected.configurable": "com.goide.configuration.GoLibrariesConfigurableProvider"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Fluffi&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.goide.configuration.GoLibrariesConfigurableProvider&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\go\src\github.com\Fluffi1235\Effective_Mobile\internal\model" />
       <recent name="D:\go\src\github.com\Fluffi1235\Effective_Mobile\internal\repositories" />
       <recent name="D:\go\src\github.com\Fluffi1235\Effective_Mobile\internal\repositories\bjj" />
       <recent name="D:\go\src\github.com\Fluffi1235\Effective_Mobile\internal\controllers" />
@@ -112,9 +106,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/internal/repositories/user_repo.go</url>
-          <line>17</line>
-          <option name="timeStamp" value="11" />
+          <url>file://$PROJECT_DIR$/internal/services/user_service.go</url>
+          <line>22</line>
+          <option name="timeStamp" value="30" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

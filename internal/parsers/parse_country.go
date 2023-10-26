@@ -4,6 +4,7 @@ import (
 	"Effective_Mobile/internal/model"
 	"context"
 	"encoding/json"
+	"errors"
 	"math/rand"
 	"net/http"
 	"time"
@@ -20,9 +21,9 @@ type country struct {
 func GetUserCountry(name string, cfg *model.Config) (string, error) {
 	client := http.DefaultClient
 	url := cfg.CountryApi + name
-	client.Timeout = 3 * time.Second
+	client.Timeout = time.Duration(cfg.ClientTimeOut) * time.Second
 
-	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(cfg.ContextTimeOut)*time.Second)
 	defer cancel()
 
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
@@ -40,6 +41,9 @@ func GetUserCountry(name string, cfg *model.Config) (string, error) {
 	err = json.NewDecoder(resp.Body).Decode(&countries)
 	if err != nil {
 		return "", err
+	}
+	if len(countries.Country) == 0 {
+		return "", errors.New("Пользователь не зарегистрирован ни в одной стране")
 	}
 	index := rand.Intn(len(countries.Country) - 1)
 

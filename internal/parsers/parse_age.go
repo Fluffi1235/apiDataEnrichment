@@ -15,9 +15,9 @@ type userAge struct {
 func GetUserAge(name string, cfg *model.Config) (int, error) {
 	client := http.DefaultClient
 	url := cfg.AgeApi + name
-	client.Timeout = 3 * time.Second
+	client.Timeout = time.Duration(cfg.ClientTimeOut) * time.Second
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(cfg.ContextTimeOut)*time.Second)
 	defer cancel()
 
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
