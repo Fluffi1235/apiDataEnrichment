@@ -19,7 +19,7 @@ func SearchUsersByParameter(r chi.Router, service *services.Service) {
 		parameters := &model.Filter{}
 		err = decoder.Decode(parameters)
 		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
+			w.WriteHeader(http.StatusBadRequest)
 			log.Println(err)
 			return
 		}
@@ -38,30 +38,23 @@ func SearchUsersByParameter(r chi.Router, service *services.Service) {
 		}
 
 		if len(users) == 0 {
+			w.WriteHeader(http.StatusOK)
 			_, err = w.Write([]byte(fmt.Sprintf("Пользователей нет, страница %d", parameters.Page)))
 			if err != nil {
 				log.Println(err)
 				return
 			}
 		}
-
-		var usersJSN [][]byte
-		for _, user := range users {
-			userJSN, err := json.Marshal(&user)
-			if err != nil {
-				w.WriteHeader(http.StatusInternalServerError)
-				log.Println(err)
-			}
-			usersJSN = append(usersJSN, userJSN)
+		usersJSN, err := json.Marshal(&users)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			log.Println(err)
 		}
-
-		for _, userJSN := range usersJSN {
-			_, err = w.Write(userJSN)
-			if err != nil {
-				w.WriteHeader(http.StatusInternalServerError)
-				log.Println(err)
-				return
-			}
+		_, err = w.Write(usersJSN)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			log.Println(err)
+			return
 		}
 
 		log.Printf("Return all users by parameter %v", parameters)

@@ -43,7 +43,7 @@ func GetUserCountry(name string, cfg *model.Config) (string, error) {
 		return "", err
 	}
 	if len(countries.Country) == 0 {
-		return "", errors.New("Пользователь не зарегистрирован ни в одной стране")
+		return "", errors.New("Country error")
 	}
 	index := rand.Intn(len(countries.Country) - 1)
 

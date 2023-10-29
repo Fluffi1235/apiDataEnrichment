@@ -22,6 +22,6 @@ func New(db *sqlx.DB) Repo {
 type UserRepo interface {
 	SaveUser(messageInfo *model.User) error
 	GetUsersByParameter(parameters string, page int) ([]*model.User, error)
+	UpdateUserById(id int, updateInfo string) (int64, error)
 	DeleteUserById(id int) error
-	UpdateUserById(updateUser *model.User) error
 }

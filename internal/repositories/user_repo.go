@@ -26,13 +26,17 @@ func (r *Repository) GetUsersByParameter(parameters string, page int) ([]*model.
 	return users, nil
 }
 
-func (r Repository) UpdateUserById(newUser *model.User) error {
-	query := "UPDATE Users set name = $1, surname = $2, patronymic = $3, age = $4, gender = $5, country = $6 where id = $7"
-	_, err := r.db.Exec(query, newUser.Name, newUser.SurName, newUser.Patronymic, newUser.Age, newUser.Gender, newUser.Country, newUser.Id)
+func (r Repository) UpdateUserById(id int, updateInfo string) (int64, error) {
+	query := "UPDATE Users set " + updateInfo + " where id = $1"
+	res, err := r.db.Exec(query, id)
 	if err != nil {
-		return err
+		return 0, err
 	}
-	return nil
+	resStatus, err := res.RowsAffected()
+	if err != nil {
+		return 0, err
+	}
+	return resStatus, nil
 }
 
 func (r Repository) DeleteUserById(id int) error {

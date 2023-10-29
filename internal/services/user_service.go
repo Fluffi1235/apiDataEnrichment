@@ -4,6 +4,7 @@ import (
 	"Effective_Mobile/internal/model"
 	"Effective_Mobile/internal/parsers"
 	"Effective_Mobile/internal/repositories"
+	"errors"
 	"fmt"
 	"strconv"
 	"strings"
@@ -19,21 +20,20 @@ func New(repo repositories.Repo) *Service {
 	}
 }
 
-func (s *Service) CreateUser(name, surname, patronymic string, cfg *model.Config) (*model.User, error) {
-	user := &model.User{-1, name, surname, patronymic, -1, "", ""}
+func (s *Service) CreateUser(user *model.User, cfg *model.Config) (*model.User, error) {
 	var err error
 
-	user.Age, err = parsers.GetUserAge(name, cfg)
+	user.Age, err = parsers.GetUserAge(user.Name, cfg)
 	if err != nil {
 		return nil, err
 	}
 
-	user.Gender, err = parsers.GetUserGender(name, cfg)
+	user.Gender, err = parsers.GetUserGender(user.Name, cfg)
 	if err != nil {
 		return nil, err
 	}
 
-	user.Country, err = parsers.GetUserCountry(name, cfg)
+	user.Country, err = parsers.GetUserCountry(user.Name, cfg)
 	if err != nil {
 		return nil, err
 	}
@@ -46,13 +46,17 @@ func (s *Service) CreateUser(name, surname, patronymic string, cfg *model.Config
 	return user, nil
 }
 
-func (s *Service) UpdateUser(newUser *model.User) error {
-	err := s.repo.UpdateUserById(newUser)
+func (s *Service) UpdateUser(updateUser *model.User) (int64, error) {
+	updateInfo, err := BuildUpdateSql(updateUser)
 	if err != nil {
-		return err
+		return 0, err
+	}
+	status, err := s.repo.UpdateUserById(updateUser.Id, updateInfo)
+	if err != nil {
+		return 0, err
 	}
 
-	return nil
+	return status, nil
 }
 
 func (s *Service) DeleteUserById(id string) error {
@@ -116,4 +120,36 @@ func BuildParametersSql(parameter *model.Filter) string {
 		return ""
 	}
 	return " where (" + strings.Join(columns, ", ") + ") = (" + strings.Join(value, ", ") + ")"
+}
+
+func BuildUpdateSql(updateUser *model.User) (string, error) {
+	var updateInfo string
+	if updateUser.Name != "" {
+		updateInfo += fmt.Sprintf("name = '%s', ", updateUser.Name)
+	}
+
+	if updateUser.SurName != "" {
+		updateInfo += fmt.Sprintf("surname = '%s', ", updateUser.SurName)
+	}
+
+	if updateUser.Patronymic != "" {
+		updateInfo += fmt.Sprintf("patronymic = '%s', ", updateUser.Patronymic)
+	}
+
+	if updateUser.Age != 0 {
+		updateInfo += fmt.Sprintf("age = %d, ", updateUser.Age)
+	}
+
+	if updateUser.Gender != "" {
+		updateInfo += fmt.Sprintf("gender = '%s', ", updateUser.Gender)
+	}
+
+	if updateUser.Country != "" {
+		updateInfo += fmt.Sprintf("country = '%s', ", updateUser.Country)
+	}
+	if updateInfo == "" {
+		return "", errors.New("All fields are empty")
+	}
+
+	return updateInfo[:len(updateInfo)-2], nil
 }

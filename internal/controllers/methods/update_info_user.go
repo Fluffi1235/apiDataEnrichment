@@ -3,58 +3,65 @@ package methods
 import (
 	"Effective_Mobile/internal/model"
 	"Effective_Mobile/internal/services"
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"github.com/go-chi/chi"
+	"io"
 	"log"
 	"net/http"
-	"strconv"
 )
 
 func UpdateInfoUser(r chi.Router, service *services.Service) {
 	r.Put("/update", func(w http.ResponseWriter, r *http.Request) {
-		id := r.FormValue("id")
-		age := r.FormValue("age")
-		if id == "" {
-			_, err := w.Write([]byte("Не ввели id пользователя"))
+		filters, err := io.ReadAll(r.Body)
+		decoder := json.NewDecoder(bytes.NewReader(filters))
+		updatedUser := &model.User{}
+
+		err = decoder.Decode(updatedUser)
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			log.Println(err)
+			return
+		}
+
+		if updatedUser.Id <= 0 {
+			w.WriteHeader(http.StatusBadRequest)
+			_, err = w.Write([]byte("Неверно введен id пользователя"))
 			if err != nil {
 				log.Println(err)
 				return
 			}
+			return
 		}
-		idInt, err := strconv.Atoi(id)
+
+		log.Printf("Updating user id: %d", updatedUser.Id)
+
+		status, err := service.UpdateUser(updatedUser)
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			log.Println(err)
+			return
+		}
+
+		if status == 0 {
+			_, err = w.Write([]byte("Пользователя с таким id не существует"))
+			if err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
+				log.Println(err)
+				return
+			}
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+
+		_, err = w.Write([]byte(fmt.Sprintf("Пользователь с id=%d обновлен", updatedUser.Id)))
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			log.Println(err)
 			return
 		}
-		ageInt, err := strconv.Atoi(age)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			log.Println(err)
-			return
-		}
-		newUser := &model.User{
-			Id:         idInt,
-			Name:       r.FormValue("name"),
-			SurName:    r.FormValue("surname"),
-			Patronymic: r.FormValue("patronymic"),
-			Age:        ageInt,
-			Gender:     r.FormValue("gender"),
-			Country:    r.FormValue("country"),
-		}
-		log.Printf("Updating user id: %s", id)
-		err = service.UpdateUser(newUser)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			log.Println(err)
-			return
-		}
-		_, err = w.Write([]byte(fmt.Sprintf("Пользователь с id=%s обновлен %v", id, newUser)))
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			log.Println(err)
-			return
-		}
-		log.Printf("User with id=%s updated %v", id, newUser)
+
+		log.Printf("User with id=%d updated", updatedUser.Id)
 	})
 }

@@ -5,11 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d7ec3ad-6225-45af-8bff-1e9a64d90af1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/88a65ae1-febe-417e-a0d1-8ad6cee72a80.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/88a65ae1-febe-417e-a0d1-8ad6cee72a80.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/88a65ae1-febe-417e-a0d1-8ad6cee72a80/storage_v2/_src_/database/db.fgwAAA/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/88a65ae1-febe-417e-a0d1-8ad6cee72a80/storage_v2/_src_/database/db.fgwAAA/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/controllers/methods/methods_delete.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/controllers/methods/delete_user_byId.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/controllers/methods/methods_post.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/controllers/methods/methods_update.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/controllers/methods/create_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/controllers/methods/create_user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/controllers/methods/search_users_by_parameter.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/controllers/methods/search_users_by_parameter.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/controllers/methods/update_info_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/controllers/methods/update_info_user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/parsers/parse_country.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/parsers/parse_country.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/repositories/interface.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/repositories/interface.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/repositories/user_repo.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/repositories/user_repo.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/services/user_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/services/user_service.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +31,9 @@
   <component name="GOROOT" url="file://C:/Program Files/Go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -103,16 +111,5 @@
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/internal/services/user_service.go</url>
-          <line>22</line>
-          <option name="timeStamp" value="30" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
